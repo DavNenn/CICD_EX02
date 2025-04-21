@@ -15,6 +15,7 @@ env:
 
 jobs:
   build:
+    name: Build and Test Code
     runs-on: ubuntu-latest
 
     steps:
@@ -46,3 +47,21 @@ jobs:
       # Step 6: Run tests
       - name: Run Go tests
         run: go test -v
+
+  sonarCloud:
+    needs: build
+    name: SonarCloud Code Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          projectKey: your_org_your_projectKey
+          organization: your_org
+          token: ${{ secrets.SONAR_TOKEN }}
