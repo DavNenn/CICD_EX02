@@ -1,4 +1,5 @@
 // main.go
+// additional comment
 
 package main
 
