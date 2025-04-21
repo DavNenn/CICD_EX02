@@ -8,6 +8,11 @@ on:
         branches:
             - main
 
+env:
+  APP_DB_USERNAME: postgres
+  APP_DB_PASSWORD: admin
+  APP_DB_NAME: database
+
 jobs:
   build:
     runs-on: ubuntu-latest
