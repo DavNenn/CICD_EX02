@@ -46,7 +46,3 @@ jobs:
       # Step 6: Run tests
       - name: Run Go tests
         run: go test -v
-
-      # Step 7: Stop PostgreSQL container after job
-      - name: Stop PostgreSQL container
-        run: docker stop postgres-container
