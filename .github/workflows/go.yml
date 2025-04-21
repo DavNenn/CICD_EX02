@@ -48,20 +48,14 @@ jobs:
       - name: Run Go tests
         run: go test -v
 
-  sonarCloud:
-    needs: build
-    name: SonarCloud Code Analysis
+  sonarqube:
+    name: SonarQube
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
         with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
-      
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        with:
-          projectKey: CICD_EX03_project_key
-          organization: CICD_EX03_organization_key
-          token: ${{ secrets.SONAR_TOKEN }}
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
