@@ -17,7 +17,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
-          go-version: '1.19'  # Specify the Go version here
+          go-version: '1.23'
 
       # Step 2: Run actions/checkout@v3
       - name: Checkout repository
@@ -29,8 +29,7 @@ jobs:
           go version
           go env
 
-      # Step 4: Start PostgreSQL container
-      # Step 3: Start PostgreSQL via docker-compose
+      # Step 4: Start PostgreSQL via docker-compose
       - name: Start PostgreSQL (docker-compose)
         run: |
           docker compose up -d
