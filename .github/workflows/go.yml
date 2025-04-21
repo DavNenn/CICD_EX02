@@ -1,0 +1,48 @@
+name: Go CI pipeline
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Set up job
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.19'  # Specify the Go version here
+
+      # Step 2: Run actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 3: Set up Go environment
+      - name: Set up Go environment
+        run: |
+          go version
+          go env
+
+      # Step 4: Start PostgreSQL container
+      # Step 3: Start PostgreSQL via docker-compose
+      - name: Start PostgreSQL (docker-compose)
+        run: |
+          docker compose up -d
+
+      # Step 5: Build the Go project
+      - name: Build Go project
+        run: go build -v
+
+      # Step 6: Run tests
+      - name: Run Go tests
+        run: go test -v
+
+      # Step 7: Stop PostgreSQL container after job
+      - name: Stop PostgreSQL container
+        run: docker stop postgres-container
